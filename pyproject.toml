@@ -18,6 +18,7 @@ whisper = ["faster-whisper>=1.0.0"]
 
 [project.scripts]
 transcript2 = "transcript2.cli:main"
+transcript2-eval = "transcript2.eval:main"
 
 [build-system]
 requires = ["setuptools>=68"]

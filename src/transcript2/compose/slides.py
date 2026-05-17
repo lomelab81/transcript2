@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from ..config import CONFIG
 from ..llm import prompts
 from ..llm.ollama_client import chat_json
@@ -78,6 +80,25 @@ def _write_slide(
     return slide
 
 
+_DIGIT = re.compile(r"\d")
+
+
+def _grounded_data(structure: VideoStructure, timestamps: list[float]) -> list[str]:
+    """Real, source-derived figures the writer may cite (kind=data or numeric)."""
+    lo = min(timestamps) - 30 if timestamps else float("-inf")
+    hi = max(timestamps) + 30 if timestamps else float("inf")
+    near, anywhere = [], []
+    for sec in structure.sections:
+        for ins in sec.insights:
+            if ins.kind == "data" or _DIGIT.search(ins.text):
+                anywhere.append(ins.text)
+                if sec.end >= lo and sec.start <= hi:
+                    near.append(ins.text)
+    picked = near or anywhere
+    seen: set[str] = set()
+    return [x for x in picked if not (x in seen or seen.add(x))][:6]
+
+
 def compose_deck(
     plan: DeckPlan,
     structure: VideoStructure,
@@ -106,17 +127,26 @@ def compose_deck(
                     or "; ".join(verdict.issues),
                     avoid=seen_messages,
                 )
-            # Groundedness guard: no fabricated %/割/倍 figures.
+            # Groundedness guard: no fabricated %/割/倍 figures. Corrective,
+            # not subtractive — feed the real data so the slide stays concrete.
             if grounding:
                 bad = unsupported(slide, grounding)
                 if bad:
                     print(f"[slides]   unsupported figures {bad}; regenerating")
+                    real = _grounded_data(structure, sp.source_timestamps)
+                    real_block = (
+                        "\n出典に実在する数値(これらは使用可):\n"
+                        + "\n".join(f"- {r}" for r in real)
+                        if real
+                        else "出典に数値データは乏しい。数値を使わず質的に述べる。"
+                    )
                     slide = _write_slide(
                         sp, structure, i, avoid=seen_messages,
                         feedback=(
-                            "次の数値は出典の文字起こしに存在しない。"
-                            "数値を一切創作せず、出典にある表現で言い換えるか"
-                            f"削除する: {', '.join(bad)}"
+                            f"次の数値は出典に存在せず創作である: {', '.join(bad)}。"
+                            "数値を一切創作しないこと。"
+                            f"{real_block}\n"
+                            "創作値は削除せず、上記の実数値で具体性を保って書き換える。"
                         ),
                     )
                     still = unsupported(slide, grounding)

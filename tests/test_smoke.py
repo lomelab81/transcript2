@@ -79,3 +79,20 @@ def test_grounding_guard():
     assert "2倍" not in bad  # present in source → supported
     scrub(s, bad)
     assert "20%" not in s.title and "5割" not in " ".join(s.bullets)
+
+
+def test_eval_deterministic(tmp_path: Path):
+    import json as _j
+
+    from transcript2.eval import evaluate
+
+    d = _deck()
+    (tmp_path / "deck.full.json").write_text(d.model_dump_json())
+    (tmp_path / "transcript.json").write_text(
+        _j.dumps([{"text": "高付加価値領域へ資源を再配分する話", "start": 0, "duration": 1}])
+    )
+    (tmp_path / "structure.json").write_text(_j.dumps({"sections": []}))
+    sc = evaluate(tmp_path, use_llm=False)
+    assert sc.slides == 2
+    assert 0.0 <= sc.deterministic_score <= 1.0
+    assert (tmp_path / "eval.json").exists()
