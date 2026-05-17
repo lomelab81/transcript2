@@ -1,0 +1,93 @@
+{
+  "deck_title": "スーパーパワーズプラグインによるクラウドコード作業効率向上",
+  "deck_subtitle": "課題→分析→提言のストーリーラインで理解を深める",
+  "slides": [
+    {
+      "purpose": "title",
+      "working_title": "スーパーパワーズプラグインとは？",
+      "intent": "視覚的にプラグインの概要を伝える",
+      "source_timestamps": []
+    },
+    {
+      "purpose": "agenda",
+      "working_title": "本プレゼンテーションの構成",
+      "intent": "各セクションの内容を明示する",
+      "source_timestamps": []
+    },
+    {
+      "purpose": "background",
+      "working_title": "クラウドコード作業における課題",
+      "intent": "現状の問題点を明らかにする",
+      "source_timestamps": [
+        0.0,
+        49.0
+      ]
+    },
+    {
+      "purpose": "issue",
+      "working_title": "スーパーパワーズプラグインが解決する課題",
+      "intent": "プラグインが抱える問題を具体的に示す",
+      "source_timestamps": [
+        47.0,
+        152.0
+      ]
+    },
+    {
+      "purpose": "analysis",
+      "working_title": "プラグインの導入と機能",
+      "intent": "プラグインの主な機能を説明する",
+      "source_timestamps": [
+        47.0,
+        152.0
+      ]
+    },
+    {
+      "purpose": "analysis",
+      "working_title": "スカーミングスキルと計画フェーズ",
+      "intent": "具体的な例を通じてスカーミングスキルの効果を示す",
+      "source_timestamps": [
+        152.0,
+        234.0
+      ]
+    },
+    {
+      "purpose": "analysis",
+      "working_title": "実行フェーズと並列作業",
+      "intent": "実行フェーズにおけるプラグインの役割を説明する",
+      "source_timestamps": [
+        152.0,
+        234.0
+      ]
+    },
+    {
+      "purpose": "analysis",
+      "working_title": "品質ゲートとテストドリブン開発",
+      "intent": "プラグインによる品質管理の改善を示す",
+      "source_timestamps": [
+        234.0,
+        418.0
+      ]
+    },
+    {
+      "purpose": "recommendation",
+      "working_title": "プラグインの自動化とカスタマイズ",
+      "intent": "プラグインの柔軟性と利便性を強調する",
+      "source_timestamps": [
+        396.0,
+        517.0
+      ]
+    },
+    {
+      "purpose": "outlook",
+      "working_title": "今後の展望",
+      "intent": "将来的な可能性と期待を示す",
+      "source_timestamps": []
+    },
+    {
+      "purpose": "closing",
+      "working_title": "締めくくり",
+      "intent": "全体の主張を再確認し、行動への呼びかけを行う",
+      "source_timestamps": []
+    }
+  ]
+}
