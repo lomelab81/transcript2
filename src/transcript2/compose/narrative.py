@@ -81,9 +81,20 @@ def evidence_for(structure: VideoStructure, timestamps: list[float]) -> str:
         # No anchors → give the model the thesis + section titles.
         return "; ".join(s.title for s in structure.sections)[:1500]
     lo, hi = min(timestamps), max(timestamps)
+    # Kind tags let the writer cite concrete examples/data instead of
+    # paraphrasing everything as a generic point.
+    tag = {
+        "example": "【具体例】",
+        "data": "【数値】",
+        "framework": "【枠組み】",
+        "emphasis": "【強調】",
+        "insight": "",
+    }
     parts: list[str] = []
     for sec in structure.sections:
         if sec.end >= lo - 30 and sec.start <= hi + 30:
-            ins = " / ".join(i.text for i in sec.insights[:6])
+            ins = " / ".join(
+                f"{tag.get(i.kind, '')}{i.text}" for i in sec.insights[:6]
+            )
             parts.append(f"■ {sec.title} [{sec.start:.0f}-{sec.end:.0f}s]\n  {sec.summary}\n  {ins}")
-    return ("\n".join(parts) or structure.thesis)[:2200]
+    return ("\n".join(parts) or structure.thesis)[:2400]

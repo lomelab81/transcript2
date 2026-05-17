@@ -10,6 +10,8 @@ non-lossy: it never rewrites or merges section content).
 
 from __future__ import annotations
 
+import re
+
 from pydantic import BaseModel, Field
 
 from ..llm import prompts
@@ -32,6 +34,51 @@ class _FlatSection(BaseModel):
 class _PartialStructure(BaseModel):
     sections: list[_FlatSection] = Field(default_factory=list)
     frameworks: list[str] = Field(default_factory=list)
+
+
+class _KindList(BaseModel):
+    kinds: list[str] = Field(default_factory=list)
+
+
+_ALLOWED = {"insight", "example", "framework", "data", "emphasis"}
+# Numeric / statistical signal → 'data' without spending an LLM call.
+_DATA_RE = re.compile(r"[0-9０-９]|[%％]|割|倍|回|年|件|名|人|円|ドル|時間|分")
+
+
+def _classify_kinds(points: list[str]) -> list[str]:
+    """Recover the insight-kind taxonomy lost by the flat MAP schema.
+
+    Heuristic 'data' detection first (free); one batched LLM call classifies
+    the remainder. Falls back to 'insight' on any failure or length mismatch.
+    """
+    kinds: list[str | None] = [
+        "data" if _DATA_RE.search(p) else None for p in points
+    ]
+    todo = [(i, points[i]) for i, k in enumerate(kinds) if k is None]
+    if todo:
+        numbered = "\n".join(f"{n + 1}. {t}" for n, (_, t) in enumerate(todo))
+        try:
+            out = chat_json(
+                prompts.CLASSIFY_SYS,
+                prompts.CLASSIFY_USER.format(n=len(todo), numbered=numbered),
+                _KindList,
+                temperature=0.0,
+            )
+            if len(out.kinds) == len(todo):
+                for (idx, _), raw in zip(todo, out.kinds):
+                    k = str(raw).strip().lower()
+                    kinds[idx] = k if k in _ALLOWED else "insight"
+        except Exception as e:
+            print(f"[structure]   kind-classify fallback ({e})")
+    return [k if k in _ALLOWED else "insight" for k in kinds]
+
+
+def _make_insights(points: list[str]) -> list[Insight]:
+    pts = [p.strip() for p in points if p.strip()]
+    if not pts:
+        return []
+    kinds = _classify_kinds(pts)
+    return [Insight(text=p, kind=k) for p, k in zip(pts, kinds)]
 
 
 class _ReduceOut(BaseModel):
@@ -74,11 +121,7 @@ def analyze_structure(chunks: list[dict], *, single_pass_chars: int = 6500) -> V
                         summary=fs.summary,
                         start=fs.start,
                         end=fs.end,
-                        insights=[
-                            Insight(text=kp, kind="insight")
-                            for kp in fs.key_points
-                            if kp.strip()
-                        ],
+                        insights=_make_insights(fs.key_points),
                     )
                 )
             frameworks.extend(part.frameworks)
