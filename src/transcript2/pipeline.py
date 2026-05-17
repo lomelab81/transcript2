@@ -25,6 +25,7 @@ from .config import CONFIG
 from .ingest.transcript import get_transcript
 from .ingest.youtube import fetch_meta
 from .llm.ollama_client import ping
+from .render.pdf import render_pdf
 from .render.pptx import render_pptx
 from .schema import Deck
 from .visuals.canva_adapter import write_canva_spec
@@ -100,6 +101,10 @@ def run(url: str, *, make_pptx: bool = True) -> Result:
             pptx_path = render_pptx(deck, run_dir / "deck.pptx")
         except Exception as e:
             print(f"   pptx render failed (non-fatal): {e}")
+    try:
+        render_pdf(deck, run_dir / "deck_local.pdf")
+    except Exception as e:
+        print(f"   pdf render failed (non-fatal): {e}")
 
     print(f"✔ done → {run_dir}")
     return Result(run_dir, slides_json, canva_spec, pptx_path, deck)

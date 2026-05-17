@@ -1,57 +1,27 @@
 {
-  "thesis": "スーパーパワーズプラグインはクラウドコードの作業効率を大幅に向上させ、計画から実行までの一連のプロセスを改善する。",
+  "thesis": "Superpowersプラグインはクラウドコード開発の計画段階から実装までを支援し、ユーザーが効率的に作業を行うことができる。",
   "sections": [
     {
-      "title": "プラグインの導入と機能",
-      "summary": "スーパーパワーズはクラウドコードに一連のスキルをインストールし、作業の計画から実行までの一連のプロセスを改善します。",
+      "title": "導入とプラグインの説明",
+      "summary": "動画では、Superpowersという無料オープンソースプラグインについて説明しています。このプラグインはクラウドコードに一連のスキルを追加し、計画から実装までの一連のフェーズを通過させます。",
       "start": 0.0,
-      "end": 49.0,
+      "end": 115.0,
       "insights": [
         {
-          "text": "5つのフェーズ（クリアライズ、デザイン、プランニング、コーディング、検証）",
-          "kind": "framework",
-          "start": 0.0,
-          "end": 0.0
-        }
-      ],
-      "transition_in": ""
-    },
-    {
-      "title": "スカーミングスキルと計画",
-      "summary": "スーパーパワーズのスカーミングスキルはクラウドコードに視覚的な伴侶を提供し、複数のオプションから選択できるようにします。",
-      "start": 47.0,
-      "end": 152.0,
-      "insights": [
-        {
-          "text": "クラウドコードの実行結果とスーパーパワーズを使用したプロンプトの比較",
-          "kind": "example",
+          "text": "SuperpowersはJesse Vincentによって作成された無料オープンソースプラグイン",
+          "kind": "insight",
           "start": 0.0,
           "end": 0.0
         },
         {
-          "text": "スカーミングスキルと計画フェーズ",
-          "kind": "framework",
-          "start": 0.0,
-          "end": 0.0
-        }
-      ],
-      "transition_in": ""
-    },
-    {
-      "title": "実行フェーズ",
-      "summary": "スーパーパワーズはタスクを安全な停止点で進めるためのメソッドを使用し、並列作業を可能にします。",
-      "start": 151.0,
-      "end": 234.0,
-      "insights": [
-        {
-          "text": "並行エージェントの使用例",
-          "kind": "example",
+          "text": "クラウドコードが何かを作成する前に、計画から実装までの一連のフェーズを通過させる",
+          "kind": "insight",
           "start": 0.0,
           "end": 0.0
         },
         {
-          "text": "実行フェーズ",
-          "kind": "framework",
+          "text": "フェーズは「明確化」「設計」「計画」「コーディング」「検証」である",
+          "kind": "insight",
           "start": 0.0,
           "end": 0.0
         }
@@ -59,20 +29,38 @@
       "transition_in": ""
     },
     {
-      "title": "品質ゲートとテストドリブン開発",
-      "summary": "スーパーパワーズはテストドリブン開発を使用してコードの品質を保証し、システム的なデバッグメソッドも提供します。",
-      "start": 233.0,
-      "end": 418.0,
+      "title": "Superpowersの機能と詳細",
+      "summary": "プラグインがどのように動作するか、具体的なスキルやフェーズについて説明しています。特に、クラウドコードの計画段階での支援を強調しています。",
+      "start": 114.0,
+      "end": 265.0,
       "insights": [
         {
-          "text": "スーパーパワーズが推奨するアプローチの選択",
-          "kind": "example",
+          "text": "プラグインは「using superpowers」というマスタースキルで始まり、他のスキルを選択します",
+          "kind": "insight",
           "start": 0.0,
           "end": 0.0
         },
         {
-          "text": "品質ゲートとテストドリブン開発",
-          "kind": "framework",
+          "text": "設計フェーズではブレインストーミングスキルを使用し、タスクリストを作成します",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "計画フェーズではハイパーディテールドな実装プランを作成し、コードブロックをテストして保存します",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "実行フェーズでは安全停止と並列エージェントの使用が特徴的で、独立した問題は並列に処理されます",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "品質ゲートとしてテスト駆動開発(TDD)やシステム的なデバッグを使用し、完了前に検証を行います",
+          "kind": "insight",
           "start": 0.0,
           "end": 0.0
         }
@@ -80,20 +68,164 @@
       "transition_in": ""
     },
     {
-      "title": "プラグインの自動化とカスタマイズ",
-      "summary": "スーパーパワーズは自動化されたスキルを提供し、必要に応じてカスタマイズが可能で、ユーザーは追加の保険として関連するスキルを使用することもできます。",
+      "title": "質問による情報収集",
+      "summary": "動画は、ユーザーに対して複数の質問を投げかけ、それによって必要な情報を効果的に得ることができるという点を強調しています。",
+      "start": 263.0,
+      "end": 307.0,
+      "insights": [
+        {
+          "text": "5つの質問が投げかけられ、ユーザーの頭の中にある情報を引き出す",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "具体的な情報が得られるため、ユーザーはコミュニケーションを行う必要がない",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "ホストが示す3つのアプローチ（知識エクスplorer）を紹介",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        }
+      ],
+      "transition_in": ""
+    },
+    {
+      "title": "異なる視覚的な表示方法",
+      "summary": "システムはさまざまな視覚的な表示方法を提案し、ユーザーのニーズに合わせて最適なものを選択することができる。",
+      "start": 305.0,
+      "end": 398.0,
+      "insights": [
+        {
+          "text": "インタラクティブな力強さグラフ",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "検索可能なカードグリッド",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "グラフヒーローとカード詳細",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "それぞれのアプローチの利点と欠点が示される",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "ユーザーは選択したアプローチに基づいてエージェントが作業を続ける",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "スーパーパワー技能が自動的に呼び出され、必要に応じて手動で指定することもできる",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        }
+      ],
+      "transition_in": ""
+    },
+    {
+      "title": "具体的な例と修正",
+      "summary": "システムは提案されたアプローチに基づいて具体的な例を生成し、ユーザーが不適切な場合でも修正することができる。",
       "start": 396.0,
       "end": 517.0,
       "insights": [
         {
-          "text": "スーパーパワーズが推奨したアプローチの修正",
-          "kind": "example",
+          "text": "システムが生成したダッシュボードの例",
+          "kind": "insight",
           "start": 0.0,
           "end": 0.0
         },
         {
-          "text": "プラグインの自動化とカスタマイズ",
-          "kind": "framework",
+          "text": "ダッシュボード内のノードに関する操作（ホバリング、クリック、ドラッグなど）",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "ユーザーが修正を提案できる点",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "モダンなデザインへの改善要求",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        }
+      ],
+      "transition_in": ""
+    },
+    {
+      "title": "Superpowers Plugin Installation and Usage",
+      "summary": "The speaker explains how to install the Superpowers plugin in VS Code, its simplicity, and provides a GitHub link for reference.",
+      "start": 544.0,
+      "end": 635.0,
+      "insights": [
+        {
+          "text": "Install Superpowers plugin via Cloud Code marketplace",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "Simple installation process: copy line from repository and paste into VS Code terminal",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "Option to install globally or per project level, recommended global user-level installation",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        }
+      ],
+      "transition_in": ""
+    },
+    {
+      "title": "無超能力実験の結果",
+      "summary": "12回のクラウドコードセッションを実施し、6回は超能力を使用せず、残り6回では使用した。同じプロンプトとモデル（Opus 4.6）を使用して、人間との相互作用なしで実行した。複数のタスクに対して実施し、結果は方向性を示すものだが結論には至っていない。",
+      "start": 825.0,
+      "end": 896.0,
+      "insights": [
+        {
+          "text": "12回のクラウドコードセッション",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "6回は超能力を使用せず、残り6回では使用した",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "同じプロンプトとモデル（Opus 4.6）を使用して人間との相互作用なしで実行",
+          "kind": "insight",
+          "start": 0.0,
+          "end": 0.0
+        },
+        {
+          "text": "複数のタスクに対して実施し、結果は方向性を示すものだが結論には至っていない",
+          "kind": "insight",
           "start": 0.0,
           "end": 0.0
         }
@@ -102,11 +234,15 @@
     }
   ],
   "frameworks": [
-    "クリアライズ、デザイン、プランニング、コーディング、検証",
-    "スカーミングスキル",
-    "実行フェーズ",
-    "品質ゲートとテストドリブン開発",
-    "プラグインの自動化とカスタマイズ"
+    "test-driven development (TDD)",
+    "スーパーパワー技能",
+    "力強さグラフ",
+    "カードグリッド",
+    "グラフヒーローとカード詳細",
+    "Cloud Code marketplace",
+    "無超能力実験",
+    "プラグインの機能と利点",
+    "具体的な例と修正プロセス"
   ],
-  "narrative_arc": "動画はスーパーパワーズプラグインの導入から、その機能や効果、そしてユーザーがどのように利用するかを順に説明します。最初はプラグインの基本的な機能とその価値を強調し、次に詳細なフェーズや具体的な例を通じて効果を示します。最後にはカスタマイズ可能な特性と自動化の利点を述べ、全体としてプラグインがクラウドコード作業を大幅に改善するという中心的な主張を展開します。"
+  "narrative_arc": "動画はまずSuperpowersプラグインの導入とその主な機能について説明し、次に具体的な例や修正プロセスを通じてその有用性を強調します。最後には無超能力実験の結果を示し、プラグインがどのようにユーザーを支援するかを示しています。"
 }

@@ -1,92 +1,77 @@
 {
-  "deck_title": "スーパーパワーズプラグインによるクラウドコード作業効率向上",
-  "deck_subtitle": "課題→分析→提言のストーリーラインで理解を深める",
+  "deck_title": "Superpowersプラグインによるクラウドコード開発の効率化",
+  "deck_subtitle": "課題解決と提言",
   "slides": [
     {
       "purpose": "title",
-      "working_title": "スーパーパワーズプラグインとは？",
-      "intent": "視覚的にプラグインの概要を伝える",
-      "source_timestamps": []
+      "working_title": "Superpowersプラグインとは？",
+      "intent": "スーパーパワースプラグインがクラウドコード開発にどのように支援するかを理解する。",
+      "source_timestamps": [
+        0.0,
+        115.0
+      ]
     },
     {
       "purpose": "agenda",
-      "working_title": "本プレゼンテーションの構成",
-      "intent": "各セクションの内容を明示する",
+      "working_title": "スライド概要",
+      "intent": "本プレゼンテーションの目的と構成を示す。",
       "source_timestamps": []
     },
     {
       "purpose": "background",
-      "working_title": "クラウドコード作業における課題",
-      "intent": "現状の問題点を明らかにする",
+      "working_title": "クラウドコード開発の課題",
+      "intent": "クラウドコード開発における一般的な課題を明確化する。",
       "source_timestamps": [
-        0.0,
-        49.0
+        263.0,
+        398.0
       ]
     },
     {
       "purpose": "issue",
-      "working_title": "スーパーパワーズプラグインが解決する課題",
-      "intent": "プラグインが抱える問題を具体的に示す",
+      "working_title": "計画段階での支援不足",
+      "intent": "計画段階で十分な支援が得られない課題を指摘する。",
       "source_timestamps": [
-        47.0,
-        152.0
+        114.0,
+        263.0
       ]
     },
     {
       "purpose": "analysis",
-      "working_title": "プラグインの導入と機能",
-      "intent": "プラグインの主な機能を説明する",
+      "working_title": "Superpowersプラグインの機能分析",
+      "intent": "Superpowersプラグインが提供する主要な機能とその効果を分析する。",
       "source_timestamps": [
-        47.0,
-        152.0
+        114.0,
+        265.0
       ]
     },
     {
       "purpose": "analysis",
-      "working_title": "スカーミングスキルと計画フェーズ",
-      "intent": "具体的な例を通じてスカーミングスキルの効果を示す",
-      "source_timestamps": [
-        152.0,
-        234.0
-      ]
-    },
-    {
-      "purpose": "analysis",
-      "working_title": "実行フェーズと並列作業",
-      "intent": "実行フェーズにおけるプラグインの役割を説明する",
-      "source_timestamps": [
-        152.0,
-        234.0
-      ]
-    },
-    {
-      "purpose": "analysis",
-      "working_title": "品質ゲートとテストドリブン開発",
-      "intent": "プラグインによる品質管理の改善を示す",
-      "source_timestamps": [
-        234.0,
-        418.0
-      ]
-    },
-    {
-      "purpose": "recommendation",
-      "working_title": "プラグインの自動化とカスタマイズ",
-      "intent": "プラグインの柔軟性と利便性を強調する",
+      "working_title": "具体的な例と修正プロセス",
+      "intent": "プラグインの実際の使用例と、ユーザーがどのように修正するかを示す。",
       "source_timestamps": [
         396.0,
         517.0
       ]
     },
     {
+      "purpose": "analysis",
+      "working_title": "無超能力実験の結果",
+      "intent": "Superpowersプラグインを使用しない場合と使用した場合の比較結果を示す。",
+      "source_timestamps": [
+        825.0,
+        896.0
+      ]
+    },
+    {
       "purpose": "outlook",
       "working_title": "今後の展望",
-      "intent": "将来的な可能性と期待を示す",
+      "intent": "Superpowersプラグインが将来的に開発プロセスにどのように影響を与えるかを示す。",
       "source_timestamps": []
     },
     {
       "purpose": "closing",
-      "working_title": "締めくくり",
-      "intent": "全体の主張を再確認し、行動への呼びかけを行う",
+      "working_title": "結論とQ&A",
+      "intent": "本プレゼンテーションの主なポイントを要約し、質疑応答を行う。",
       "source_timestamps": []
     }
   ]

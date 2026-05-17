@@ -52,3 +52,10 @@ def test_canva_spec():
 def test_pptx_render(tmp_path: Path):
     out = render_pptx(_deck(), tmp_path / "d.pptx")
     assert out.exists() and out.stat().st_size > 0
+
+
+def test_pdf_render(tmp_path: Path):
+    from transcript2.render.pdf import render_pdf
+
+    out = render_pdf(_deck(), tmp_path / "d.pdf")
+    assert out.exists() and out.stat().st_size > 0
