@@ -28,6 +28,7 @@ from .ingest.youtube import fetch_meta
 from .llm.ollama_client import ping
 from .render.pdf import render_pdf
 from .render.pptx import render_pptx
+from .render.script import render_script
 from .schema import Deck
 from .visuals.canva_adapter import write_canva_spec
 from .visuals.frames import attach_frames
@@ -110,6 +111,10 @@ def run(url: str, *, make_pptx: bool = True) -> Result:
         render_pdf(deck, run_dir / "deck_local.pdf")
     except Exception as e:
         print(f"   pdf render failed (non-fatal): {e}")
+    try:
+        render_script(deck, run_dir / "presenter_script.md")
+    except Exception as e:
+        print(f"   script export failed (non-fatal): {e}")
 
     print(f"✔ done → {run_dir}")
     return Result(run_dir, slides_json, canva_spec, pptx_path, deck)
