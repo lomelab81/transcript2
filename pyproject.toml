@@ -1,0 +1,27 @@
+[project]
+name = "transcript2"
+version = "0.1.0"
+description = "YouTube → executive Japanese presentation generation pipeline"
+requires-python = ">=3.11"
+dependencies = [
+    "yt-dlp>=2024.0.0",
+    "youtube-transcript-api>=0.6.2",
+    "python-pptx>=0.6.23",
+    "pydantic>=2.6",
+    "requests>=2.31",
+    "Pillow>=10.2",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+whisper = ["faster-whisper>=1.0.0"]
+
+[project.scripts]
+transcript2 = "transcript2.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+output/
+.env
+*.log
+.DS_Store
+*.pptx
+*.mp4
+*.webm
+*.m4a
+frames/
+.cache/

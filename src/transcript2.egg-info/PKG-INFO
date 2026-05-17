@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: transcript2
+Version: 0.1.0
+Summary: YouTube → executive Japanese presentation generation pipeline
+Requires-Python: >=3.11
+Requires-Dist: yt-dlp>=2024.0.0
+Requires-Dist: youtube-transcript-api>=0.6.2
+Requires-Dist: python-pptx>=0.6.23
+Requires-Dist: pydantic>=2.6
+Requires-Dist: requests>=2.31
+Requires-Dist: Pillow>=10.2
+Requires-Dist: numpy>=1.26
+Provides-Extra: whisper
+Requires-Dist: faster-whisper>=1.0.0; extra == "whisper"
