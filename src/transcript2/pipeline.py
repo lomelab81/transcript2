@@ -17,7 +17,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from .analyze.chunker import chunk, transcript_with_timestamps
+from .analyze.chunker import chunk
 from .analyze.structure import analyze_structure
 from .compose.narrative import plan_deck
 from .compose.slides import compose_deck
@@ -70,11 +70,10 @@ def run(url: str, *, make_pptx: bool = True) -> Result:
 
     print("▶ [3/8] semantic chunking")
     chunks = chunk(segs)
-    block = transcript_with_timestamps(chunks)
     print(f"   {len(chunks)} topical chunks")
 
     print("▶ [4/8] structural analysis (reconstructing the argument)")
-    structure = analyze_structure(block)
+    structure = analyze_structure(chunks)
     _save(structure, run_dir / "structure.json")
     print(f"   thesis: {structure.thesis[:80]}…  ({len(structure.sections)} sections)")
 

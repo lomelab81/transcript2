@@ -68,10 +68,32 @@ def _pack(group: list[TranscriptSegment]) -> dict:
     }
 
 
+def _fmt(c: dict) -> str:
+    return f"[{c['start']:.0f}s–{c['end']:.0f}s] {c['text']}"
+
+
 def transcript_with_timestamps(chunks: list[dict], limit: int = 12000) -> str:
     """Render chunks as a timestamped block for prompt injection (capped)."""
-    lines = []
+    return "\n".join(_fmt(c) for c in chunks)[:limit]
+
+
+def context_windows(chunks: list[dict], max_chars: int = 6500) -> list[str]:
+    """Split chunks into ordered, context-bounded timestamped blocks.
+
+    Used by the map-reduce structural pass so long videos are NOT truncated:
+    every chunk lands in exactly one window, windows stay within the model's
+    usable context.
+    """
+    windows: list[str] = []
+    cur: list[str] = []
+    size = 0
     for c in chunks:
-        lines.append(f"[{c['start']:.0f}s–{c['end']:.0f}s] {c['text']}")
-    blob = "\n".join(lines)
-    return blob[:limit]
+        line = _fmt(c)
+        if cur and size + len(line) > max_chars:
+            windows.append("\n".join(cur))
+            cur, size = [], 0
+        cur.append(line)
+        size += len(line) + 1
+    if cur:
+        windows.append("\n".join(cur))
+    return windows

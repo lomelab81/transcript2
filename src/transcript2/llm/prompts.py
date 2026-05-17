@@ -33,6 +33,43 @@ STRUCTURE_USER = """以下はタイムスタンプ付きの文字起こしです
 # 文字起こし
 {transcript}"""
 
+# --- Map-reduce (long videos: no truncation) -------------------------------- #
+
+STRUCTURE_MAP_SYS = """あなたは戦略コンサルのアナリストです。
+動画文字起こしの「一部分」を読み、その部分に含まれる論理単位(セクション)だけを抽出します。
+全体の結論は出さず、この部分の事実・主張・具体例を忠実に構造化します。"""
+
+STRUCTURE_MAP_USER = """これは動画の {part}/{total} 番目の部分です。
+
+# 抽出
+- sections: この部分の論理単位ごとに title / summary / start / end / transition_in / insights
+  - insights の kind: insight / example / framework / data / emphasis
+  - start / end は秒(この部分のタイムスタンプを使用・必須)
+- frameworks: この部分で使われた枠組み・モデル名
+
+# 厳守
+- この部分の内容のみ。前後を推測しない
+- 具体例・数値・固有名詞を失わない
+
+# 文字起こし(この部分)
+{transcript}"""
+
+STRUCTURE_REDUCE_SYS = """あなたは戦略コンサルのプリンシパルです。
+動画全体から抽出済みのセクション一覧を俯瞰し、動画を貫く論理を言語化します。
+セクション自体は再構築せず、全体の主張と論の構築過程のみを述べます。"""
+
+STRUCTURE_REDUCE_USER = """以下は動画全体から時系列順に抽出されたセクション一覧です。
+
+{sections_overview}
+
+# タスク
+1. thesis: 動画全体を貫く中心的主張を1文で
+2. narrative_arc: 序盤→終盤で話者がどう論を構築したか(2〜3文)
+3. frameworks: 全体で使われた思考の枠組み(重複排除)
+
+# 厳守
+- セクションの内容・順序は変更しない。全体像のみを述べる"""
+
 # --------------------------------------------------------------------------- #
 # Narrative planning — map original structure onto executive arc
 # --------------------------------------------------------------------------- #
@@ -62,10 +99,14 @@ NARRATIVE_USER = """# 入力: 動画の知的構造
 7. 今後の展望
 8. クロージング
 
-# 厳守
+# 厳守(重複排除・最重要)
 - 元動画の主張と論理順序を尊重する(別物に作り変えない)
 - 各スライドは単一メッセージ
-- 冗長な背景説明スライドを量産しない"""
+- すべてのスライドの intent(So What)は相互に異なる切り口にする。
+  同じ主張・同じ言い回しの言い換えスライドを作らない
+- 同種の analysis スライドを量産しない。analysis は最大3枚、各々別の論点
+- 冗長な背景説明スライドを量産しない
+- working_title も intent も、他スライドと表現が被らないようにする"""
 
 # --------------------------------------------------------------------------- #
 # Per-slide writing — executive Japanese
@@ -99,3 +140,30 @@ thesis: {thesis}
 visual_type は frame(動画フレームが有効) / generated(AI画像が有効) / icon / none から選ぶ。
 generated の場合 image_prompt に日本企業向けプレゼンに合う落ち着いたビジュアルの英語プロンプトを記述。
 layout は title/agenda/section/content/two_column/quote/data/closing から最適なものを。"""
+
+# --------------------------------------------------------------------------- #
+# Critic — LLM-as-judge gating each slide against the presentation rules
+# --------------------------------------------------------------------------- #
+
+CRITIC_SYS = """あなたは外資系戦略コンサルのパートナーで、提出前のスライドを辛口でレビューします。
+クライアント提出に耐えるかを基準に、以下の観点で厳格に採点します。"""
+
+CRITIC_USER = """# レビュー対象スライド
+title: {title}
+message: {message}
+bullets:
+{bullets}
+
+# 他スライドの message 一覧(重複検知用)
+{siblings}
+
+# 評価観点(各 false= 不合格)
+- implication_title: title が「示唆を語る」結論型か(体言止め・一般名詞だけは不合格)
+- specific: 「様々な」「重要」「効率向上」等の漠然・常套句に逃げていないか
+- concise: bullets が各35字以内・3〜5個・動詞締めか
+- distinct: 他スライドの message と主張が被っていないか(言い換え重複は不合格)
+
+# 出力
+- passed: 全観点を満たすなら true
+- issues: 不合格観点ごとに具体的な日本語指摘(なければ空配列)
+- rewrite_directive: 再執筆者への簡潔な改善指示(passed=true なら空文字)"""
