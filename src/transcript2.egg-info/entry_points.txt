@@ -1,2 +1,0 @@
-[console_scripts]
-transcript2 = transcript2.cli:main

@@ -11,3 +11,6 @@ output/
 *.m4a
 frames/
 .cache/
+*.egg-info/
+.claude/
+.venv/
