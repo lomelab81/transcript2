@@ -59,3 +59,23 @@ def test_pdf_render(tmp_path: Path):
 
     out = render_pdf(_deck(), tmp_path / "d.pdf")
     assert out.exists() and out.stat().st_size > 0
+
+
+def test_grounding_guard():
+    from transcript2.compose.grounding import (
+        build_corpus,
+        scrub,
+        unsupported,
+    )
+
+    corpus = build_corpus("動画では14スキルと2倍の改善に言及した")
+    s = Slide(
+        title="開発効率20%向上",
+        message="2倍の改善を確認",
+        bullets=["14スキルを活用", "コストを5割削減"],
+    )
+    bad = unsupported(s, corpus)
+    assert "20%" in bad and "5割" in bad  # invented
+    assert "2倍" not in bad  # present in source → supported
+    scrub(s, bad)
+    assert "20%" not in s.title and "5割" not in " ".join(s.bullets)

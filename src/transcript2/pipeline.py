@@ -19,6 +19,7 @@ from pathlib import Path
 
 from .analyze.chunker import chunk
 from .analyze.structure import analyze_structure
+from .compose.grounding import build_corpus
 from .compose.narrative import plan_deck
 from .compose.slides import compose_deck
 from .config import CONFIG
@@ -84,7 +85,11 @@ def run(url: str, *, make_pptx: bool = True) -> Result:
     print(f"   {len(plan.slides)} slides planned")
 
     print("▶ [6/8] composing slides in executive Japanese")
-    deck = compose_deck(plan, structure, meta)
+    corpus = build_corpus(
+        " ".join(s.text for s in segs),
+        " ".join(i.text for sec in structure.sections for i in sec.insights),
+    )
+    deck = compose_deck(plan, structure, meta, grounding=corpus)
 
     print("▶ [7/8] attaching visuals (YouTube frames)")
     deck = attach_frames(deck, url, run_dir)

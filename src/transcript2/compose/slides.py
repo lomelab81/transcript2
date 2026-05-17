@@ -7,6 +7,7 @@ from ..llm import prompts
 from ..llm.ollama_client import chat_json
 from ..schema import Deck, Slide, VideoMeta, VideoStructure
 from .critic import review_slide
+from .grounding import scrub, unsupported
 from .narrative import DeckPlan, evidence_for
 
 # How many critic-driven rewrites to attempt per slide before accepting.
@@ -78,7 +79,11 @@ def _write_slide(
 
 
 def compose_deck(
-    plan: DeckPlan, structure: VideoStructure, meta: VideoMeta
+    plan: DeckPlan,
+    structure: VideoStructure,
+    meta: VideoMeta,
+    *,
+    grounding: str = "",
 ) -> Deck:
     slides: list[Slide] = []
     seen_messages: list[str] = []
@@ -101,6 +106,23 @@ def compose_deck(
                     or "; ".join(verdict.issues),
                     avoid=seen_messages,
                 )
+            # Groundedness guard: no fabricated %/割/倍 figures.
+            if grounding:
+                bad = unsupported(slide, grounding)
+                if bad:
+                    print(f"[slides]   unsupported figures {bad}; regenerating")
+                    slide = _write_slide(
+                        sp, structure, i, avoid=seen_messages,
+                        feedback=(
+                            "次の数値は出典の文字起こしに存在しない。"
+                            "数値を一切創作せず、出典にある表現で言い換えるか"
+                            f"削除する: {', '.join(bad)}"
+                        ),
+                    )
+                    still = unsupported(slide, grounding)
+                    if still:
+                        print(f"[slides]   still unsupported {still}; scrubbing")
+                        slide = scrub(slide, still)
             slides.append(slide)
             if slide.message:
                 seen_messages.append(slide.message)
