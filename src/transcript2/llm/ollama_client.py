@@ -105,8 +105,16 @@ def _field_guide(
         desc = f.description or ""
         origin = getattr(ann, "__origin__", None)
         if origin in (list, set) or ann_name == "list":
-            example[name] = ["..."]
-            kind = "array of strings"
+            args = getattr(ann, "__args__", ())
+            item = args[0] if args else str
+            if isinstance(item, type) and issubclass(item, BaseModel):
+                _, sub = _field_guide(item, frozenset())
+                example[name] = [sub]
+                fields = ", ".join(item.model_fields)
+                kind = f"array of objects (each: {{{fields}}})"
+            else:
+                example[name] = ["..."]
+                kind = "array of strings"
         elif ann_name in ("int", "float"):
             example[name] = 0
             kind = "number"

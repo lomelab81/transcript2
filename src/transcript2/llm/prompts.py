@@ -157,13 +157,19 @@ bullets:
 # 他スライドの message 一覧(重複検知用)
 {siblings}
 
-# 評価観点(各 false= 不合格)
-- implication_title: title が「示唆を語る」結論型か(体言止め・一般名詞だけは不合格)
-- specific: 「様々な」「重要」「効率向上」等の漠然・常套句に逃げていないか
-- concise: bullets が各35字以内・3〜5個・動詞締めか
-- distinct: 他スライドの message と主張が被っていないか(言い換え重複は不合格)
+# 注意
+- title と message は別物。title=見出し、message=その下の一文。混同して指摘しない。
+- bullets の文字数は別工程で機械的に調整済み。長さは指摘しない。
+
+# 評価観点(重大な問題のみ false=不合格。軽微な改善余地は不合格にしない)
+- implication_title: title が結論・示唆を語っているか。
+  単なる一般名詞の羅列(例「市場の現状」「本日の構成」)のみ不合格。
+- specific: 「様々な」「重要」「効率向上」等の空疎な常套句に終始していないか。
+  具体語が1つでもあれば合格。
+- distinct: message が他スライドと実質同一の主張(言い換え重複)でないか。
+  これが最重要観点。
 
 # 出力
-- passed: 全観点を満たすなら true
-- issues: 不合格観点ごとに具体的な日本語指摘(なければ空配列)
-- rewrite_directive: 再執筆者への簡潔な改善指示(passed=true なら空文字)"""
+- passed: 上記3観点すべてに重大な不合格がなければ true(完璧でなくてよい)
+- issues: 重大な不合格のみ具体的な日本語で(なければ空配列)
+- rewrite_directive: 再執筆者への1〜2文の改善指示(passed=true なら空文字)"""

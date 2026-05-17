@@ -14,12 +14,23 @@ from pydantic import BaseModel, Field
 
 from ..llm import prompts
 from ..llm.ollama_client import chat_json
-from ..schema import Section, VideoStructure
+from ..schema import Insight, Section, VideoStructure
 from .chunker import context_windows
 
 
+# Flat MAP schema — a 7B model reliably fills flat string lists, but fails
+# on deeply-nested models (Section→Insight with Literal kinds). We assemble
+# the rich Section objects in Python afterwards.
+class _FlatSection(BaseModel):
+    title: str = ""
+    summary: str = ""
+    start: float = 0.0
+    end: float = 0.0
+    key_points: list[str] = Field(default_factory=list)
+
+
 class _PartialStructure(BaseModel):
-    sections: list[Section] = Field(default_factory=list)
+    sections: list[_FlatSection] = Field(default_factory=list)
     frameworks: list[str] = Field(default_factory=list)
 
 
@@ -56,7 +67,20 @@ def analyze_structure(chunks: list[dict], *, single_pass_chars: int = 6500) -> V
                 _PartialStructure,
                 temperature=0.2,
             )
-            sections.extend(part.sections)
+            for fs in part.sections:
+                sections.append(
+                    Section(
+                        title=fs.title,
+                        summary=fs.summary,
+                        start=fs.start,
+                        end=fs.end,
+                        insights=[
+                            Insight(text=kp, kind="insight")
+                            for kp in fs.key_points
+                            if kp.strip()
+                        ],
+                    )
+                )
             frameworks.extend(part.frameworks)
         except Exception as e:
             print(f"[structure]   map {i} failed ({e}); skipping window")

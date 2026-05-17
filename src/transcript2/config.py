@@ -25,6 +25,7 @@ class Config:
     # Pipeline knobs
     target_slides: int = field(default_factory=lambda: int(_env("T2_TARGET_SLIDES", "12")))
     max_bullets: int = 5
+    max_bullet_chars: int = 60  # hard cap; runaway bullets get trimmed with …
     extract_frames: bool = field(default_factory=lambda: _env("T2_FRAMES", "1") == "1")
     frame_count: int = field(default_factory=lambda: int(_env("T2_FRAME_COUNT", "8")))
     whisper_model: str = field(default_factory=lambda: _env("T2_WHISPER_MODEL", "base"))

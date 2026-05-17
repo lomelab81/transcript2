@@ -10,7 +10,8 @@ from .critic import review_slide
 from .narrative import DeckPlan, evidence_for
 
 # How many critic-driven rewrites to attempt per slide before accepting.
-_MAX_REWRITES = 2
+# One pass: the second rarely helped and tripled LLM cost per slide.
+_MAX_REWRITES = 1
 
 
 # Slide layout is derived from the planned ROLE, not the LLM — a 7B model
@@ -65,8 +66,14 @@ def _write_slide(
     )
     slide.source_timestamps = plan.source_timestamps
     slide.layout = _derive_layout(plan.purpose, idx)
-    # Enforce executive concision.
-    slide.bullets = [b.strip() for b in slide.bullets if b.strip()][: CONFIG.max_bullets]
+    # Enforce executive concision deterministically (the LLM can't count JP
+    # chars reliably, so we cap here instead of asking the critic to police it).
+    cap = CONFIG.max_bullet_chars
+    slide.bullets = [
+        (b[: cap - 1] + "…") if len(b) > cap else b
+        for b in (x.strip() for x in slide.bullets)
+        if b.strip()
+    ][: CONFIG.max_bullets]
     return slide
 
 
